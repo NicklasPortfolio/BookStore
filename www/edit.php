@@ -63,7 +63,10 @@ $query = null;
             </div>
             <div class="row justify-content-center">
                 <div class="col-4 text-center">
-                    <input class="btn btn-primary mt-2" type="submit" value="Update">
+                    <input class="btn btn-primary mt-2" type="submit" name="submit_button" value="Update">
+                </div>
+                <div class="col-4 text-center">
+                    <input class="btn btn-danger mt-2" type="submit" name="submit_button" value="Delete">
                 </div>
             </div>
         </form>
