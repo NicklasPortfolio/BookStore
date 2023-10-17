@@ -2,7 +2,13 @@
 require_once("../config/db_config.php");
 
 $query = "SELECT * FROM books";
-$results = $db_connection->query($query);
+$stmt = $db_connection->prepare($query);
+
+if ($stmt->execute()) {
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    echo "Error fetching data: " . implode(" - ", $stmt->errorInfo());
+}
 
 $db_connection = null;
 ?>
