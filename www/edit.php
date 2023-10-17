@@ -15,6 +15,7 @@ if (isset($_GET['id'])) {
 }
 
 $db_connection = null;
+$query = null;
 ?>
 
 <!DOCTYPE html>
@@ -30,32 +31,36 @@ $db_connection = null;
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<body>
-    <div class="container text-center p-5 form-group">
-        <form action="../www/update.php" method="post" class="form-control justify-content-center">
+<body class="bg-dark">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <form action="../www/update.php" method="post" class="form-control bg-dark text-white">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col">
                     <label for="title">Title</label>
-                    <input class="w-50" type="text" name="Title" placeholder="<?= $book['Title'] ?>">
+                    <input class="form-control" type="text" name="Title" placeholder="<?= $book['Title'] ?>">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col">
                     <label for="author">Author</label>
-                    <input class="" type="text" name="Author" placeholder="<?= $book['Author'] ?>">
+                    <input class="form-control" type="text" name="Author" placeholder="<?= $book['Author'] ?>">
                 </div>
-                <div class="col-lg-4">
+                <div class="col">
                     <label for="genre">Genre</label>
-                    <input class="" type="text" name="Genre" placeholder="<?= $book['Genre'] ?>">
+                    <input class="form-control" type="text" name="Genre" placeholder="<?= $book['Genre'] ?>">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col">
                     <label for="publisher">Publisher</label>
-                    <input class="" type="text" name="Publisher" placeholder="<?= $book['Publisher'] ?>">
+                    <input class="form-control" type="text" name="Publisher" placeholder="<?= $book['Publisher'] ?>">
                 </div>
             </div>
-            <input class="btn btn-primary" type="submit" value="Update">
+            <div class="row justify-content-center">
+                <div class="col-4 text-center">
+                    <input class="btn btn-primary mt-2" type="submit" value="Update">
+                </div>
+            </div>
         </form>
     </div>
 
