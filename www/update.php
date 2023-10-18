@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($button == 'Update') {
 
-        $sql = "UPDATE books ";
+        $sql = "UPDATE books SET ";
 
         $placeholders = [];
         $params = [':id' => $id];
