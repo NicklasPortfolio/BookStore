@@ -2,7 +2,6 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once("../config/db_config.php");
 
-    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     $title = filter_input(INPUT_POST, 'Title', FILTER_SANITIZE_STRING);
     $author = filter_input(INPUT_POST, 'Author', FILTER_SANITIZE_STRING);
     $genre = filter_input(INPUT_POST, 'Genre', FILTER_SANITIZE_STRING);
@@ -10,37 +9,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $button = $_POST['submit_button'];
 
-    if ($button == 'Update') {
-
-        $sql = "UPDATE books ";
+    if ($button == 'Create') {
+        
+        $sql = "INSERT INTO books ";
 
         $placeholders = [];
-        $params = [':id' => $id];
+        $params = [':id' => "NULL"];
+
+        $placeholders[] = ":id";
 
         if (!empty($title)) {
-            $placeholders[] = "Title = :title";
+            $placeholders[] = ":title";
             $params[':title'] = $title;
         }
 
         if (!empty($author)) {
-            $placeholders[] = "Author = :author";
+            $placeholders[] = ":author";
             $params[':author'] = $author;
         }
 
         if (!empty($genre)) {
-            $placeholders[] = "Genre = :genre";
+            $placeholders[] = ":genre";
             $params[':genre'] = $genre;
         }
 
         if (!empty($publisher)) {
-            $placeholders[] = "Publisher = :publisher";
+            $placeholders[] = ":publisher";
             $params[':publisher'] = $publisher;
         }
 
         if (empty($placeholders)) {
             echo "No fields to update.";
         } else {
-            $sql .= implode(", ", $placeholders) . " WHERE id = :id";
+            $sql .= "VALUES (" . implode(", ", $placeholders) . ")";
+            echo $sql;
 
             try {
                 $stmt = $db_connection->prepare($sql);
@@ -49,29 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: index.php");
                     exit;
                 } else {
-                    echo "Error updating record: " . implode(" - ", $stmt->errorInfo());
+                    echo "Error creating record: " . implode(" - ", $stmt->errorInfo());
                 }
             } catch (PDOException $e) {
                 echo "Database Error: " . $e->getMessage();
             }
-        }
-    }
-
-    if ($button == "Delete") {
-        $sql = "DELETE FROM books WHERE id = :id";
-        $stmt = $db_connection->prepare($sql);
-
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-
-        try {
-            if ($stmt->execute()) {
-                header("Location: index.php");
-                exit;
-            } else {
-                echo "Error updating record: " . implode(" - ", $stmt->errorInfo());
-            }
-        } catch (PDOException $e) {
-            echo "Database Error: " . $e->getMessage();
         }
     }
 

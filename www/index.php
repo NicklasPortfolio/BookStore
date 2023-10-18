@@ -33,6 +33,9 @@ $db_connection = null;
 </head>
 
 <body class="bg-dark">
+    <form action="../www/createform.php" method="post">
+        <button type="submit" name="create_button" class="btn btn-success m-lg-3">Create New</button>
+    </form>
     <section class="container">
         <table class="table table-dark">
             <thead>
